@@ -4,7 +4,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class C2V_Ex01 {
@@ -43,7 +45,20 @@ public class C2V_Ex01 {
 	 *  - addAddtribute("속성명", 데이터) 메서드를 사용하여 데이터를 뷰로 전송 한다.
 	 * 
 	 * */
+	@GetMapping("/modelEx")
+	public String modelEx(Model model) {
+		
+		model.addAttribute("enrolledProductCnt" , supposeDAO.getEnrolledProductCnt());
+		model.addAttribute("productDTO"         , supposeDAO.getProductDetail());
+		model.addAttribute("productList"        , supposeDAO.getProductList());
+		model.addAttribute("productMap"         , supposeDAO.getProductMap());
+		model.addAttribute("productMapList"     , supposeDAO.getProductMapList());
+
+		return "chapter01_form/view";
+		
+	}
 	
+
 	/*
 	 * 
 	 * 3) ModelAndView
@@ -56,5 +71,20 @@ public class C2V_Ex01 {
 	 * - 관용적으로 객체명은 mv 혹은 mav로 사용한다.
 	 * 
 	 * */
-	
+	@GetMapping("/modelAndViewEx")
+	public ModelAndView modelAndViewEx() { // return 타입은 String이 아닌 ModelAndView 클래스를 작성
+		
+		//ModelAndView mv = new ModelAndView(); // ModelAndView 객체를 생성
+		//mv.setViewName("chapter01_form/view"); // view 경로를 작성	
+		ModelAndView mv = new ModelAndView("chapter01_form/view");
+		
+		// view로 전송할 데이터를 작성
+		mv.addObject("enrolledProductCnt" , supposeDAO.getEnrolledProductCnt());
+		mv.addObject("productDTO"         , supposeDAO.getProductDetail());
+		mv.addObject("productList"        , supposeDAO.getProductList());
+		mv.addObject("productMap"         , supposeDAO.getProductMap());
+		mv.addObject("productMapList"     , supposeDAO.getProductMapList());
+		
+		return mv; // ModelAndView 객체를 반환
+	}
 }
