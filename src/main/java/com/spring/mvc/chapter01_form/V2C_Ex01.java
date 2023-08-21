@@ -1,5 +1,6 @@
 package com.spring.mvc.chapter01_form;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
@@ -31,18 +32,15 @@ public class V2C_Ex01 {
 	 *  - String to Date 데이터 형식의 바인딩은 DTO클래스 property위에 @DateTimeFormat(pattern = "yyyy-MM-dd")을 추가하여 매핑한다.
 	 */
 	@PostMapping("/modelAttribute")
-	// public String modelAttribute(ProductDTO productDTO) 
+	//public String modelAttribute(ProductDTO productDTO) {
 	public String modelAttribute(@ModelAttribute ProductDTO productDTO) {
 		
 		System.out.println("\n ModelAttribute \n");
 		System.out.println(productDTO);
 		System.out.println();
 		
-		return "chapter01_form/input";
-		
+		return "chapter01_form/input";		
 	}
-	
-	
 	
 	
 	/* 
@@ -56,7 +54,7 @@ public class V2C_Ex01 {
 	 *
 	 * - Map으로 전달되는 데이터가 정수,실수,글자등 다양한 데이터일 경우 다형성을 이용하여 Object타입으로 처리할 수 있다.
 	 * 
-	 */
+	 */	
 	@PostMapping("/map")
 	public String map(@RequestParam Map<String,Object> productMap) {
 		
@@ -64,14 +62,23 @@ public class V2C_Ex01 {
 		System.out.println(productMap);
 		System.out.println();
 		
-		return "chapter01_form/input";
-		
+		return "chapter01_form/input";	
 	}
 	
 	
-	
 	// 참고 DTO List 전송
-	
-	
+	@PostMapping("DTOList")
+	public String DTOList(@ModelAttribute ProductDTO productDTO) {
+		
+		System.out.println("\n DTO List \n");
+		System.out.println(productDTO.getProductList());
+		
+		List<ProductDTO> productList = productDTO.getProductList();
+		
+		for (ProductDTO temp: productList) {
+			System.out.println(temp);
+		}
+		
+		return "redirect:/input";		
+	}
 }
-
