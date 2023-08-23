@@ -113,7 +113,10 @@ public class M2D {
 	public void ex10() {
 		
 		System.out.println("\n - ex10 - \n");
-		
+		List<Map<String,Object>> productMapList = sqlSession.selectList("m2d.ex10");
+		for (Map<String, Object> map : productMapList) {
+			System.out.println(map);
+		}
 	}
 	
 	
@@ -121,7 +124,10 @@ public class M2D {
 	public void ex11() {
 		
 		System.out.println("\n - ex11 - \n");
-		
+		List<Map<String,Object>> productMapList = sqlSession.selectList("m2d.ex11");
+		for (Map<String, Object> map : productMapList) {
+			System.out.println(map);
+		}
 	}
 	
 	
